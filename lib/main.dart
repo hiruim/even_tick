@@ -1,4 +1,4 @@
-import 'package:even_tick/ui/screens/login.dart';
+import 'package:even_tick/ui/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
