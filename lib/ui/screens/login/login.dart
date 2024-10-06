@@ -1,4 +1,9 @@
 import 'package:even_tick/config/app_assets.dart';
+import 'package:even_tick/config/text_styles.dart';
+import 'package:even_tick/ui/screens/home/home.dart';
+import 'package:even_tick/ui/screens/login/forgot_password.dart';
+import 'package:even_tick/ui/screens/login/sign_up.dart';
+import 'package:even_tick/widgets/custom_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,7 +12,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -36,42 +41,50 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(fontSize: 25),
               ),
               SizedBox(height: 30),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'username',
-                  labelStyle: TextStyle(fontSize: 18),
-                ),
+              CustomTextField(
+                heading: 'Username',
+                hintText: 'Enter Your Username',
+                onChangeFunction: (val) {
+                  print(val);
+                },
               ),
-              SizedBox(height: 20),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'password',
-                  labelStyle: TextStyle(fontSize: 18),
-                ),
+              const SizedBox(
+                height: 25,
               ),
-              SizedBox(height: 10),
+              CustomTextField(
+                heading: 'Password',
+                hintText: 'Enter Your Password',
+                isObscure: true,
+                onChangeFunction: (val) {
+                  print(val);
+                },
+              ),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    // Handle "Forgot Password" action
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen(),
+                      ),
+                    );
                   },
                   child: Text(
-                    'Forget Password?',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF2052A4),
-                    ),
+                    'Forget Password ?',
+                    style: blueTextStyle,
                   ),
                 ),
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Handle login action
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ),
+                  );
                 },
                 child: Text(
                   'Login',
@@ -95,7 +108,12 @@ class LoginPage extends StatelessWidget {
               SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
-                  // Handle sign up action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignUpScreen(),
+                    ),
+                  );
                 },
                 child: Text(
                   'sign up',
