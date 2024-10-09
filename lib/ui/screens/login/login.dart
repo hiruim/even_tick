@@ -1,6 +1,6 @@
 import 'package:even_tick/config/app_assets.dart';
 import 'package:even_tick/config/text_styles.dart';
-import 'package:even_tick/ui/screens/home/home.dart';
+import 'package:even_tick/ui/screens/home/main_screen.dart';
 import 'package:even_tick/ui/screens/login/forgot_password.dart';
 import 'package:even_tick/ui/screens/login/sign_up.dart';
 import 'package:even_tick/widgets/custom_widgets/custom_text_field.dart';
@@ -82,7 +82,7 @@ class LoginPage extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
+                      builder: (context) => MainScreen(),
                     ),
                   );
                 },

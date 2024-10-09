@@ -6,35 +6,13 @@ class AppColors {
   static const buttonTextColor = Color(0xFFFFFFFF);
   static const iconButtonColor = Color(0xFF898989);
   static const iconButtonBoarderColor = Color(0xFFE6E6E6);
-  static const containerGradientColor = Color(0xFF133162);
+
   static const statusTextColor = Color(0xFF565656);
-  static const circleColor = Color(0xFFDF0101);
-  static const onlineColor = Color(0xFF2DCD01);
-  static const normalTextColor = Color(0xFF575757);
-  static const normalTextColor2 = Color(0xFF7B7B7B);
-  static const deactiveColor = Color(0xFFD9D9D9);
+
   static const headingColor = Color(0xFF000000);
-  static const activeLableColor = Color(0xFFDAEAFF);
-  static const pendingLableColor = Color(0xFFFFDBC9);
-  static const completeLableColor = Color(0xFFD3FFC7);
-  static const pendingValueColor = Color(0xFFEB631F);
-  static const assignedLabelColor = Color(0xFFFFECFA);
-  static const assignedValueColor = Color(0xFFA24689);
-  static const inRouteLabelColor = Color(0xFFFFF2D4);
-  static const inRouteValueColor = Color(0xFFFFB200);
-  static const pickUpLabelColor = Color(0xFFE0ECFF);
-  static const closeLabelColor = Color(0xFFFFEBEB);
-  static const dialogBoxHintTextColor = Color(0xFF979797);
-  static const pendingStatusColor = Color(0xFFFFE6DA);
-  static const subTextColor = Color(0xFF7B7B7B);
-  static const buttonHiddenColor = Color(0xFFDADADA);
-  static const completeHeighlightColor = Color(0xFFE8FFE2);
-  static const activeCircleColor = Color(0xFF33C960);
-  static const nameColor = Color(0xFF1C1C1C);
-  static const drawerTextColor = Color(0xFF676767);
-  static const loginSubTextColor = Color(0xFF525252);
+
   static const textFeildTitleColor = Color(0xFF212121);
   static const hintTextColor = Color(0xFF5C5555);
-  static const bottomSheetColor = Color(0xFFFEEFE9);
-  static const filterBoarderColor = Color(0xFFCFCFCF);
+  static const notificationcircleleftcolor = Color(0xFF9DB3D9);
+  static const notificationcirclerightcolor = Color(0xFF0D2142);
 }
