@@ -39,7 +39,7 @@ class NotificationPage extends StatelessWidget {
           'Notification',
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            fontSize: 16,
+            fontSize: 22,
             color: AppColors.headingColor,
             height: 30,
           ),
