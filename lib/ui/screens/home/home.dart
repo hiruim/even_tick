@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              height: 100, 
+              height: 100,
               child: Card(
                 color: Colors.white,
                 elevation: 3,
@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              width: double.infinity, 
+              width: double.infinity,
             ),
             // SizedBox(height: ),
             Expanded(
@@ -88,7 +88,12 @@ class HomeScreen extends StatelessWidget {
                     border: Border.all(color: Colors.black26),
                   ),
                   child: Center(
-                    child: Text('Scan Me', style: TextStyle(fontSize: 20)),
+                    child: Image.asset(
+                      AppAssets.QrImg,
+                      width: 400.0,
+                      height: 400.0,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),

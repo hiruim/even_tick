@@ -10,4 +10,6 @@ class AppAssets {
   ///image
   static const logo = 'assets/images/logo.png';
   static const profileImg = 'assets/images/profile.png';
+  static const QrImg = 'assets/images/Qr.png'; 
+  static const PartyImg = 'assets/images/party.png'; 
 }

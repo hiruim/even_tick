@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:even_tick/config/app-color.dart';
 import 'package:even_tick/ui/screens/Event/event_home.dart';
 import 'package:even_tick/ui/screens/home/home.dart';
 import 'package:even_tick/ui/utills/settings.dart';
@@ -39,7 +40,7 @@ class _BottomNavState extends State<MainScreen> {
       bottomNavigationBar: CurvedNavigationBar(
           height: 65,
           backgroundColor: Colors.white,
-          color: Color.fromARGB(255, 3, 28, 77),
+          color: AppColors.NavigationBarColor,
           animationDuration: Duration(milliseconds: 500),
           onTap: (int index) {
             setState(() {
