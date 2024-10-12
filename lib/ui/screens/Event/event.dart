@@ -125,7 +125,7 @@ class EventScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => paymentScreen(),
+                    builder: (context) => PaymentScreen(),
                   ),
                 );
               },
