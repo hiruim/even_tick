@@ -1,5 +1,7 @@
+import 'package:even_tick/config/app-color.dart';
 import 'package:even_tick/config/app_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -36,8 +38,25 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About Us'),
+        backgroundColor: AppColors.AppBarColor,
+        leading: IconButton(
+          icon: SvgPicture.asset(AppAssets.arrowBackWithCircularBoarderIcon),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        title: const Text(
+          'About Us',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 22,
+            color: AppColors.headingColor,
+            height: 30,
+          ),
+        ),
       ),
+      backgroundColor: AppColors.Bacgroundcolor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

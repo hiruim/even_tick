@@ -1,5 +1,10 @@
+import 'package:even_tick/config/app-color.dart';
 import 'package:even_tick/config/app_assets.dart';
+import 'package:even_tick/ui/screens/Event/event_home.dart';
+import 'package:even_tick/ui/screens/Settings/about.dart';
+import 'package:even_tick/ui/screens/Settings/help.dart';
 import 'package:even_tick/ui/screens/home/notification.dart';
+import 'package:even_tick/ui/utills/settings.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,7 +12,73 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.menu),
+        backgroundColor: AppColors.AppBarColor,
+        leading: PopupMenuButton<String>(
+          icon: Icon(Icons.menu),
+          onSelected: (value) {
+            switch (value) {
+              case 'Events':
+                // Navigate to the Events page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EventHomeScreen(),
+                  ),
+                );
+                break;
+              case 'Settings':
+                // Navigate to the Settings page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(),
+                  ),
+                );
+                break;
+
+              case 'Help':
+                // Navigate to the Help page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HelpScreen(),
+                  ),
+                );
+                break;
+              case 'About':
+                // Navigate to the About page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutScreen(),
+                  ),
+                );
+                break;
+            }
+          },
+          itemBuilder: (BuildContext context) => [
+            PopupMenuItem(
+              value: 'Events',
+              child: Text('Events'),
+            ),
+            PopupMenuItem(
+              value: 'Settings',
+              child: Text('Settings'),
+            ),
+            PopupMenuItem(
+              value: 'Language',
+              child: Text('Language'),
+            ),
+            PopupMenuItem(
+              value: 'About',
+              child: Text('About'),
+            ),
+            PopupMenuItem(
+              value: 'Help',
+              child: Text('Help'),
+            ),
+          ],
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),
@@ -21,9 +92,9 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ],
-        backgroundColor: Colors.grey[300],
         elevation: 0,
       ),
+      backgroundColor: AppColors.Bacgroundcolor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -78,7 +149,6 @@ class HomeScreen extends StatelessWidget {
               ),
               width: double.infinity,
             ),
-            // SizedBox(height: ),
             Expanded(
               child: Center(
                 child: Container(

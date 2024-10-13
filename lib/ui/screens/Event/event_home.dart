@@ -1,3 +1,4 @@
+import 'package:even_tick/config/app-color.dart';
 import 'package:even_tick/ui/screens/Event/event.dart';
 import 'package:flutter/material.dart';
 
@@ -13,14 +14,19 @@ class EventHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Events'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back action here
-          },
+        backgroundColor: AppColors.AppBarColor,
+        centerTitle: true,
+        title: const Text(
+          'Events',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 22,
+            color: AppColors.headingColor,
+            height: 30,
+          ),
         ),
       ),
+      backgroundColor: AppColors.Bacgroundcolor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

@@ -1,5 +1,8 @@
+import 'package:even_tick/config/app-color.dart';
+import 'package:even_tick/config/app_assets.dart';
 import 'package:even_tick/ui/screens/login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key});
@@ -20,8 +23,25 @@ class _ForgotPasswordState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Forgot Password'),
+        backgroundColor: AppColors.AppBarColor,
+        leading: IconButton(
+          icon: SvgPicture.asset(AppAssets.arrowBackWithCircularBoarderIcon),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        title: const Text(
+          'Forgot Password',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 22,
+            color: AppColors.headingColor,
+            height: 30,
+          ),
+        ),
       ),
+      backgroundColor: AppColors.Bacgroundcolor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -103,7 +123,14 @@ class _ForgotPasswordState extends State<ForgotPasswordScreen> {
                     // emailController.text, newPasswordController.text, confirmPasswordController.text
                   }
                 },
-                child: Text('Reset Password'),
+                child: Text(
+                  'Reset Password',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF2052A4),
+                  minimumSize: Size(double.infinity, 50),
+                ),
               ),
             ],
           ),

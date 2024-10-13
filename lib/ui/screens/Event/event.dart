@@ -27,6 +27,7 @@ class EventScreen extends StatelessWidget {
           ),
         ),
       ),
+      backgroundColor: AppColors.Bacgroundcolor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
