@@ -1,8 +1,10 @@
+import 'package:even_tick/config/app-color.dart';
 import 'package:even_tick/config/app_assets.dart';
 import 'package:even_tick/config/text_styles.dart';
 import 'package:even_tick/ui/screens/home/main_screen.dart';
 import 'package:even_tick/ui/screens/login/forgot_password.dart';
 import 'package:even_tick/ui/screens/login/sign_up.dart';
+
 import 'package:even_tick/widgets/custom_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +12,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.Bacgroundcolor,
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),

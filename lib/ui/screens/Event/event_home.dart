@@ -1,3 +1,5 @@
+import 'package:even_tick/config/app-color.dart';
+import 'package:even_tick/ui/screens/Event/event.dart';
 import 'package:flutter/material.dart';
 
 class EventHomeScreen extends StatelessWidget {
@@ -5,21 +7,26 @@ class EventHomeScreen extends StatelessWidget {
     'Festival Event',
     'Party Event',
     'Musical Event',
-    'Musical Event'
+    'Musical Event',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Events'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back action here
-          },
+        backgroundColor: AppColors.AppBarColor,
+        centerTitle: true,
+        title: const Text(
+          'Events',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 22,
+            color: AppColors.headingColor,
+            height: 30,
+          ),
         ),
       ),
+      backgroundColor: AppColors.Bacgroundcolor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -61,16 +68,27 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[200],
-      ),
-      child: Center(
-        child: Text(
-          eventName,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+    return GestureDetector(
+      onTap: () {
+        // Navigate to MainScreen when "Party Event" is clicked
+        if (eventName == 'Party Event') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EventScreen()),
+          );
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey[200],
+        ),
+        child: Center(
+          child: Text(
+            eventName,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

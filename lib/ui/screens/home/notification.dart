@@ -45,7 +45,7 @@ class NotificationPage extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.Bacgroundcolor,
       body: ListView.builder(
         itemCount: notifications.length,
         itemBuilder: (context, index) {

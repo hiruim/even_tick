@@ -27,6 +27,7 @@ class EventScreen extends StatelessWidget {
           ),
         ),
       ),
+      backgroundColor: AppColors.Bacgroundcolor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -125,7 +126,7 @@ class EventScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => paymentScreen(),
+                    builder: (context) => PaymentScreen(),
                   ),
                 );
               },

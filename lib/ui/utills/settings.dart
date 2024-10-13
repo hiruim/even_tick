@@ -1,6 +1,7 @@
 import 'package:even_tick/config/app-color.dart';
-import 'package:even_tick/ui/screens/home/about.dart';
-import 'package:even_tick/ui/screens/home/help.dart';
+import 'package:even_tick/ui/screens/Settings/Language.dart';
+import 'package:even_tick/ui/screens/Settings/about.dart';
+import 'package:even_tick/ui/screens/Settings/help.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -18,31 +19,40 @@ class _SettingsState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
-        backgroundColor: AppColors.buttonPrimaryColor,
+        backgroundColor: AppColors.AppBarColor,
+        centerTitle: true,
+        title: const Text(
+          'Settings',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 22,
+            color: AppColors.headingColor,
+            height: 30,
+          ),
+        ),
       ),
+      backgroundColor: AppColors.Bacgroundcolor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Language Setting
-            // ListTile(
-            //   title: Text('Language'),
-            //   subtitle: Text(selectedLanguage),
-            //   trailing: Icon(Icons.arrow_forward_ios),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => Language(),
-            //       ),
-            //     );
-            //     // Open language settings or navigate to language settings page
-            //     // You can implement your logic here
-            //   },
-            // ),
-            // Divider
+            ListTile(
+              title: Text('Language'),
+              subtitle: Text(selectedLanguage),
+              trailing: Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Language(),
+                  ),
+                );
+                // Open language settings or navigate to language settings page
+                // You can implement your logic here
+              },
+            ),
+
             Divider(),
             // Help Button
             ListTile(
