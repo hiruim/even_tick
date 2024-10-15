@@ -27,7 +27,7 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.buttonTextColor,
+        backgroundColor: AppColors.AppBarColor,
         leading: IconButton(
           icon: SvgPicture.asset(AppAssets.arrowBackWithCircularBoarderIcon),
           onPressed: () {

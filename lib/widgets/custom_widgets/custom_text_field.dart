@@ -66,3 +66,18 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
+TextStyle LightTextFeildStyle() {
+    return TextStyle(
+        color: Colors.black54,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w500,
+        fontFamily: "poppins");
+  }
+
+TextStyle semiBoldTextFeildStyle() {
+    return TextStyle(
+        color: Colors.black87,
+        fontSize: 18.0,
+        fontWeight: FontWeight.w500,
+        fontFamily: "poppins");
+  }
