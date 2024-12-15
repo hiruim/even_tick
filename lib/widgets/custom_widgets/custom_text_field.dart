@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final Function(String) onChangeFunction;
   final Function? obscureTap;
   final bool isSuffix;
+  final TextEditingController controller;
 
   const CustomTextField(
       {super.key,
@@ -18,7 +19,7 @@ class CustomTextField extends StatelessWidget {
       required this.onChangeFunction,
       this.isObscure = false,
       this.isSuffix = false,
-      this.obscureTap});
+      this.obscureTap, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class CustomTextField extends StatelessWidget {
         ),
         TextField(
           obscureText: isObscure,
+          controller: controller,
           onChanged: (val) {
             onChangeFunction(val);
           },
