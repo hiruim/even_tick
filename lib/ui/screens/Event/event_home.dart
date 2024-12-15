@@ -1,635 +1,81 @@
-import 'package:even_tick/config/app-color.dart'; // Replace with your own import for app colors
-import 'package:even_tick/config/app_assets.dart';
-import 'package:even_tick/config/text_styles.dart';
-import 'package:even_tick/ui/screens/Event/event.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:even_tick/config/app-color.dart';
 import 'package:flutter/material.dart';
 
-class EventHomeScreen extends StatelessWidget {
+import '../../../config/text_styles.dart';
+import '../../../widgets/festive_card_widget.dart';
+
+class EventHomeScreen extends StatefulWidget {
+  @override
+  State<EventHomeScreen> createState() => _EventHomeScreenState();
+}
+
+class _EventHomeScreenState extends State<EventHomeScreen> {
+  final CollectionReference eventsCollection =
+      FirebaseFirestore.instance.collection('musical_events');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.AppBarColor, // Replace with your color
+        backgroundColor: AppColors.AppBarColor,
         centerTitle: true,
         title: const Text(
           'Events',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 22,
-            color: AppColors.headingColor, // Replace with your color
+            color: AppColors.headingColor,
           ),
         ),
       ),
-      backgroundColor: AppColors.Bacgroundcolor, // Replace with your color
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Search',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+      backgroundColor: AppColors.Bacgroundcolor,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              "Musical Events",
+              style: texteventTitleStyle,
+            ),
+            SizedBox(height: 5.0),
+            Expanded(
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('musical_events')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('Something went wrong!'));
+                  }
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text('No events available.'));
+                  }
+                  final events = snapshot.data!.docs;
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: events.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final event = events[index];
+                      return FestivalCard(
+                        bannerUrl: event['bannerUrl'] ?? '',
+                        title: event['title'] ?? 'No Title',
+                        description: event['description'] ?? 'No Description',
+                        venue: event['venue'] ?? 'No Venue',
+                        price: event['price'] ?? '-/-',
+                        timeStamp: (event['timeStamp'] as Timestamp).toDate(),
+                      );
+                    },
+                  );
+                },
               ),
-              // Musical
-              SizedBox(height: 20),
-              Text(
-                "Musical Events",
-                style: texteventTitleStyle,
-              ),
-              SizedBox(height: 5.0),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EventScreen()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(5.0),
-                        child: Material(
-                          elevation: 5.0,
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            width: 180,
-                            padding: EdgeInsets.all(9),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  AppAssets.PartyImg,
-                                  height: 50,
-                                  width: 180,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  "Veggie Taco Hash",
-                                  style: eventnameTextStyle,
-                                ),
-                                SizedBox(height: 5.0),
-                                Text(
-                                  "Fresh and Healthy",
-                                  style: eventcardTextStyle,
-                                ),
-                                SizedBox(height: 5.0),
-                                Text("\$25", style: eventcardTextStyle),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Festival
-              SizedBox(height: 7.0),
-              Text(
-                "Festival Events",
-                style: texteventTitleStyle,
-              ),
-              SizedBox(height: 5.0),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EventScreen()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(5.0),
-                        child: Material(
-                          elevation: 5.0,
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            width: 180,
-                            padding: EdgeInsets.all(9),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  AppAssets.PartyImg,
-                                  height: 50,
-                                  width: 180,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  "Veggie Taco Hash",
-                                  style: eventnameTextStyle,
-                                ),
-                                SizedBox(height: 5.0),
-                                Text(
-                                  "Fresh and Healthy",
-                                  style: eventcardTextStyle,
-                                ),
-                                SizedBox(height: 5.0),
-                                Text("\$25", style: eventcardTextStyle),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Drama
-              SizedBox(height: 7.0),
-              Text(
-                "Drama Show",
-                style: texteventTitleStyle,
-              ),
-              SizedBox(height: 5.0),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EventScreen()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(5.0),
-                        child: Material(
-                          elevation: 5.0,
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            width: 180,
-                            padding: EdgeInsets.all(9),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  AppAssets.PartyImg,
-                                  height: 50,
-                                  width: 180,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  "Veggie Taco Hash",
-                                  style: eventnameTextStyle,
-                                ),
-                                SizedBox(height: 5.0),
-                                Text(
-                                  "Fresh and Healthy",
-                                  style: eventcardTextStyle,
-                                ),
-                                SizedBox(height: 5.0),
-                                Text("\$25", style: eventcardTextStyle),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              //Exhibitions
-              SizedBox(height: 7.0),
-              Text(
-                "Exhibitions",
-                style: texteventTitleStyle,
-              ),
-              SizedBox(height: 5.0),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EventScreen()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.all(5.0),
-                        child: Material(
-                          elevation: 5.0,
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            width: 180,
-                            padding: EdgeInsets.all(9),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  AppAssets.PartyImg,
-                                  height: 50,
-                                  width: 180,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  "Veggie Taco Hash",
-                                  style: eventnameTextStyle,
-                                ),
-                                SizedBox(height: 5.0),
-                                Text(
-                                  "Fresh and Healthy",
-                                  style: eventcardTextStyle,
-                                ),
-                                SizedBox(height: 5.0),
-                                Text("\$25", style: eventcardTextStyle),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Material(
-                      elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        padding: EdgeInsets.all(9),
-                        width: 180,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              AppAssets.PartyImg,
-                              height: 50,
-                              width: 180,
-                              fit: BoxFit.cover,
-                            ),
-                            Text(
-                              "Veggie Taco Hash",
-                              style: eventnameTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              "Fresh and Healthy",
-                              style: eventcardTextStyle,
-                            ),
-                            SizedBox(height: 5.0),
-                            Text("\$25", style: eventcardTextStyle),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
